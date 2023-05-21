@@ -71,30 +71,30 @@ const Features = () => {
     const featureDetailsElement = featureDetails.map((featureDetails, index) => {
         const { title, content, Icon, ref, imgUrl } = featureDetails
         return (
-            <>
+            <div key={title}>
                 {index % 2 === 0 ?
-                    <div div className='flex text-green-900 h-[24rem]' ref={ref} >
+                    <div className='flex text-green-900 h-[24rem]' ref={ref}>
                         <div className='w-1/2 flex items-center justify-center bg-gray-100'>
                             <img src={imgUrl} alt="feature image" className='w-[24rem]' />
                         </div>
                         <div className='w-1/2 flex flex-col items-start justify-center space-y-8 py-6 pl-12 pr-3 bg-gray-50'>
                             <div>{Icon}</div>
                             <h1 className='text-5xl'>{title}</h1>
-                            <span className='text-2xl text-left'>{content}</span>
+                            <span className='text-2xl text-left text-black2'>{content}</span>
                         </div>
                     </div > :
-                    <div div className='flex text-green-900 h-[24rem]' ref={ref} >
+                    <div className='flex text-green-900 h-[24rem]' ref={ref} >
                         <div className='w-1/2 flex flex-col items-end justify-center space-y-8 py-6 pr-12 pl-3 bg-gray-50'>
                             <div>{Icon}</div>
                             <h1 className='text-5xl text-center'>{title}</h1>
-                            <span className='text-2xl text-right'>{content}</span>
+                            <span className='text-2xl text-right text-black2'>{content}</span>
                         </div>
                         <div className='w-1/2 flex items-center justify-center bg-gray-100'>
                             <img src={imgUrl} alt="feature image" className='w-[24rem]' />
                         </div>
                     </div >
                 }
-            </>
+            </div>
         )
 
     })
@@ -103,9 +103,7 @@ const Features = () => {
             <div className='bg-green-50 flex justify-around h-48 items-center'>
                 {featuresElement}
             </div>
-            <div>
-                {featureDetailsElement}
-            </div>
+            {featureDetailsElement}
         </section>
 
     )

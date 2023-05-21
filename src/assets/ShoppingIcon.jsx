@@ -9,3 +9,5 @@ const ShoppingIcon = ({style}) => {
 }
 
 export default ShoppingIcon
+
+
