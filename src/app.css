@@ -1,0 +1,4 @@
+.sidebar {
+  box-shadow: rgb(113 122 131 / 11%) 0px 7px 30px 0px;
+  @apply transition-all duration-100;
+}
