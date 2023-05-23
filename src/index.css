@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .sidenav-link {
+    @apply relative flex h-12 items-center justify-center bg-green-300;
+  }
+}
