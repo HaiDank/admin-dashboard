@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import msConverter from '../utils/msConverter'
 import ClockIcon from '../assets/ClockIcon'
 import KnifeForkIcon from '../assets/KnifeForkIcon'
@@ -12,7 +12,22 @@ import SearchingIcon from '../assets/SearchingIcon'
 import XCircleIcon from '../assets/XCircleIcon'
 import SideOptions from './SideOptions'
 import RecipeFilter from './RecipeFilter'
+import axios from 'axios'
 const Recipe = () => {
+  const [data, setData] = useState()
+
+  // useEffect(() => {
+  //   // fetch('https://recipehub.herokuapp.com/api/v1/user/recipes', {
+  //   //   headers: {'JWT' : 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGdtYWlsLmNvbSIsImlhdCI6MTY4NDgzMDEzOSwiZXhwIjoxNjg0OTE2NTM5fQ.BMhN_6KHnyT36HE34txmS1pgRDTd9K-cQKeDbB1SwgQ'}
+  //   // }).then(res => res.json()).then(data => {
+  //   //   setData(data)
+  //   // })
+  //   axios('https://recipehub.herokuapp.com/api/v1/user/recipes', {headers : {
+  //     'JWT' : 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGdtYWlsLmNvbSIsImlhdCI6MTY4NDgzMDEzOSwiZXhwIjoxNjg0OTE2NTM5fQ.BMhN_6KHnyT36HE34txmS1pgRDTd9K-cQKeDbB1SwgQ'
+  //   }})
+  // }, []);
+  console.log(data)
+
   const [viewOption, setViewOption] = useState('list')
   const [showedFilter, setShowedFilter] = useState(true)
   const [keyword, setKeyword] = useState('')
@@ -43,7 +58,7 @@ const Recipe = () => {
     ingredients: ['chieck', 'crispy powder'],
     rating: '5',
     isFavourite: true
-  },{
+  }, {
     imgUrl: 'https://natashaskitchen.com/wp-content/uploads/2020/03/Pan-Seared-Steak-4.jpg',
     title: 'Pan Seared Steak',
     tags: ['breakfast', 'lunch', 'dinner'],
@@ -63,7 +78,7 @@ const Recipe = () => {
     ingredients: ['chieck', 'crispy powder'],
     rating: '0',
     isFavourite: true
-  },{
+  }, {
     imgUrl: 'https://natashaskitchen.com/wp-content/uploads/2020/03/Pan-Seared-Steak-4.jpg',
     title: 'Pan Seared Steak',
     tags: ['breakfast', 'lunch', 'dinner'],
@@ -84,7 +99,7 @@ const Recipe = () => {
     rating: '1',
     isFavourite: false
   }]
-  
+
 
   const recipesElement = dummyRecipes.map(item => {
     const { imgUrl, title, tags, rating, prepTime, cookTime, recipeYield, ingredients, isFavourite } = item
@@ -114,7 +129,7 @@ const Recipe = () => {
               <div className='gap-2 py-1 flex flex-wrap'>
                 {tags.map((tag) => {
                   return (
-                    <span key={tag} className='border rounded-full py-0.5 px-3 border-green-variant font-medium'>
+                    <span key={tag} className='border rounded-full py-0.5 px-3 border-green-variant'>
                       {tag}
                     </span>)
                 })}
@@ -176,5 +191,4 @@ const Recipe = () => {
     </section>
   )
 }
-
 export default Recipe

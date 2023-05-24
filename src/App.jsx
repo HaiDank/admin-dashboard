@@ -6,6 +6,9 @@ import Recipe from './recipe'
 import MealPlanner from './mealplanner'
 import ShoppingList from './shoppinglist'
 import AddRecipe from './add'
+import FriendRecipe from './friends'
+import GlobalRecipe from './global'
+import RecipeExport from './export'
 const App = () => {
   return (
     <>
@@ -15,6 +18,9 @@ const App = () => {
         <Route path='/recipe' >
           <Route path='' element={<Recipe />} />
           <Route path='add' element={<AddRecipe />} /> 
+          <Route path='friend' element={<FriendRecipe />} /> 
+          <Route path='global' element={<GlobalRecipe />} /> 
+          <Route path='export' element={<RecipeExport />} /> 
         </Route>
         <Route path='/mealplanner' element={<MealPlanner />} />
         <Route path='/shoppinglist' element={<ShoppingList />} />

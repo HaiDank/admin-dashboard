@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PlusCircleIcon from '../assets/PlusCircleIcon'
 import SortingIcon from '../assets/SortingIcon'
 import XCircleIcon from '../assets/XCircleIcon'
 const RecipeFilter = ({ filter, setFilter }) => {
@@ -6,14 +7,14 @@ const RecipeFilter = ({ filter, setFilter }) => {
   const sortingOptions = ['title', 'recent', 'time', 'rating', 'yield']
   const tagList = ['breakfast', 'lunch', 'dinner', 'appetizer', 'dessert', 'drink', 'snack', 'vegetarian']
   const sortingOptionsElement = sortingOptions.map(sortingOption => (
-    <button key={sortingOption} className={`border px-2 rounded
-      ${sortingOption === filter.sortingBy ? 'border-green-accent bg-green-50 text-green-accent font-semibold ' : 'border-gray-400 text-gray-600'} `}
+    <button key={sortingOption} className={` px-2 rounded font-medium border-[2px]
+      ${sortingOption === filter.sortingBy ? 'border-green-accent bg-green-100 text-green-accent  ' : 'border-gray-400 text-gray-500'} `}
       onClick={() => setFilter(preFilter => { return { ...preFilter, sortingBy: sortingOption !== preFilter.sortingBy ? sortingOption : '' } })}>
       {sortingOption}
     </button>))
   const tagListElement = tagList.map(tag => (
     <button key={tag} className={`border px-2 rounded-full
-      ${filter.tags.includes(tag) ? 'border-green-accent bg-green-100 text-green-accent' : 'border-gray-400 text-gray-600'}`}
+      ${filter.tags.includes(tag) ? 'border-green-accent bg-green-200 text-green-accent' : 'border-gray-400 text-gray-600'}`}
       onClick={() => setFilter(preFilter => {
         const tagList = preFilter.tags
         tagList.includes(tag) ? tagList.splice(tagList.indexOf(tag), 1) : tagList.push(tag)
@@ -26,8 +27,8 @@ const RecipeFilter = ({ filter, setFilter }) => {
       onClick={() => setFilter(preFilter => { return { ...preFilter, ingredients: preFilter.ingredients.filter(item => item !== ingredient) } })}>
       {ingredient}
     </button>))
-  const addFilteringIngredient = (e) => {
-    setFilter(preFilter => {
+  const addFilteringIngredient = () => {
+    ingredientInput && setFilter(preFilter => {
       const newIngredients = preFilter.ingredients
       newIngredients.push(ingredientInput)
       setIngredientInput('')
@@ -53,7 +54,7 @@ const RecipeFilter = ({ filter, setFilter }) => {
         <input type="text" className='bg-gray-50 px-0.5 focus:outline-none border-b border-green-accent text-center' value={ingredientInput} onChange={(e) => setIngredientInput(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && addFilteringIngredient(e)} />
         <button onClick={addFilteringIngredient}>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.2} stroke="currentColor" className="w-6 h-6 text-green-accent"><path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+          <PlusCircleIcon style='w-6 h-6 text-green-accent'/>
         </button>
         <div className='flex flex-wrap gap-4'>{ingredientListElement}</div>
       </div>

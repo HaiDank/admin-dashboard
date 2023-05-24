@@ -11,19 +11,19 @@ const SideOptions = () => {
     const sideOptions = [{
         Icon: <AccessingIcon style='w-8 h-8' />,
         text: 'Search global recipes',
-        onClickFunction: function () { }
+        onClickFunction: function () {navigate('./global')}
     }, {
         Icon: <PlusIcon style='w-8 h-8' />,
-        text: 'Add new recipes',
-        onClickFunction: function () { navigate('./add')}
+        text: 'Add new recipe',
+        onClickFunction: function () { navigate('./add') }
     }, {
         Icon: <ExportingIcon style='w-8 h-8' />,
-        text: 'Export a recipe',
-        onClickFunction: function () { }
+        text: 'Export your recipes',
+        onClickFunction: function () {navigate('./export')}
     }, {
         Icon: <FriendIcon style='w-8 h-8' />,
-        text: 'View friend recipe',
-        onClickFunction: function () { }
+        text: 'View friend recipes',
+        onClickFunction: function () { navigate('./friend') }
     }]
     const sideOptionsElement = sideOptions.map(sideOption => {
         const { Icon, text, onClickFunction } = sideOption
@@ -36,12 +36,12 @@ const SideOptions = () => {
     })
     return (
         <div className='flex flex-col rounded-lg border border-green-accent'>
-          <div className='bg-green-accent border-green-accent rounded-t flex justify-end px-2 py-1'>
-            <button><Bars3Icon style='w-8 h-8 text-green-200' /></button>
-          </div>
-          <div>{sideOptionsElement}</div>
-          <div className='h-96'></div>
-        </div>  
+            <div className='bg-green-accent border-green-accent rounded-t flex justify-end px-2 py-1'>
+                <button><Bars3Icon style='w-8 h-8 text-green-200' /></button>
+            </div>
+            <div>{sideOptionsElement}</div>
+            <div className='h-96'></div>
+        </div>
     )
 }
 

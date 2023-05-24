@@ -1,8 +1,8 @@
 import React, { useRef } from 'react'
-import AccessingIcon from '../assets/accessingIcon'
-import PlanningIcon from '../assets/planningIcon'
-import SharingIcon from '../assets/sharingIcon'
-import ShoppingIcon from '../assets/shoppingIcon'
+import AccessingIcon from '../assets/AccessingIcon'
+import PlanningIcon from '../assets/PlanningIcon'
+import SharingIcon from '../assets/SharingIcon'
+import ShoppingIcon from '../assets/ShoppingIcon'
 
 const Features = () => {
     const accessingRef = useRef()
@@ -80,14 +80,14 @@ const Features = () => {
                         <div className='w-1/2 flex flex-col items-start justify-center space-y-8 py-6 pl-12 pr-3 bg-gray-50'>
                             <div>{Icon}</div>
                             <h1 className='text-5xl'>{title}</h1>
-                            <span className='text-2xl text-left text-black2'>{content}</span>
+                            <span className='text-2xl text-left text-black'>{content}</span>
                         </div>
                     </div > :
                     <div className='flex text-green-900 h-[24rem]' ref={ref} >
                         <div className='w-1/2 flex flex-col items-end justify-center space-y-8 py-6 pr-12 pl-3 bg-gray-50'>
                             <div>{Icon}</div>
                             <h1 className='text-5xl text-center'>{title}</h1>
-                            <span className='text-2xl text-right text-black2'>{content}</span>
+                            <span className='text-2xl text-right text-black'>{content}</span>
                         </div>
                         <div className='w-1/2 flex items-center justify-center bg-gray-100'>
                             <img src={imgUrl} alt="feature image" className='w-[24rem]' />
