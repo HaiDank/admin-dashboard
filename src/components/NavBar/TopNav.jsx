@@ -1,20 +1,39 @@
 import React from "react";
 import { usePageContext } from "../../contexts/PageContext";
+import SwitchButton from "../SwitchButton";
+import Button from "../Button";
 
 function TopNav() {
-  const { activeMenu, setActiveMenu } = usePageContext();
+  const { activeMenu, setActiveMenu, toggleDarkMode, isDarkMode } =
+    usePageContext();
 
   const handleToggleMenu = () => setActiveMenu(!activeMenu);
 
+  const menuToggleIcon = (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      fill='none'
+      viewBox='0 0 24 24'
+      strokeWidth={1.5}
+      stroke='currentColor'
+      className='h-6 w-6'
+    >
+      <path
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        d='M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5'
+      />
+    </svg>
+  );
+
   return (
     <div className='headnav fixed w-full md:static'>
-      <button
-        type='button'
-        onClick={() => handleToggleMenu()}
-        className='relative rounded-full p-3 text-xl hover:bg-slate-100'
-      >
-        Menu Toggle
-      </button>
+      {/* toggleMenuButton */}
+      <Button customFunc={() => handleToggleMenu()} icon={menuToggleIcon} />
+      {/*  */}
+      {/* toggleThemeButton */}
+      <SwitchButton isOn={isDarkMode} customFunc={() => toggleDarkMode()} />
+      {/*  */}
     </div>
   );
 }

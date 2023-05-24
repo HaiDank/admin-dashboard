@@ -6,19 +6,18 @@ import UserMP from "./pages/UserManagementPage/UserMP";
 import SideNav from "./components/NavBar/SideNav";
 import TopNav from "./components/NavBar/TopNav";
 import { usePageContext } from "./contexts/PageContext";
+import { useEffect } from "react";
 
 function App() {
-  const { activeMenu } = usePageContext();
-
-  console.log(activeMenu);
+  const { activeMenu, isDarkMode } = usePageContext();
 
   return (
     <>
-      <div className='relative flex'>
+      <div className={isDarkMode ? "dark relative flex" : "relative flex"}>
         <div
           className={
             activeMenu
-              ? "sidebar dark:bg-secondary-dark-bg fixed h-screen w-72 bg-white "
+              ? "sidebar fixed h-screen w-72 bg-white dark:bg-slate-700 "
               : "sidebar w-0 "
           }
         >
@@ -27,8 +26,8 @@ function App() {
         <div
           className={
             activeMenu
-              ? "inline-block min-h-screen w-full md:ml-72"
-              : "inline-block min-h-screen w-full"
+              ? "inline-block min-h-screen w-full dark:bg-slate-700 md:ml-72"
+              : "inline-block min-h-screen w-full dark:bg-slate-700"
           }
         >
           <div>
