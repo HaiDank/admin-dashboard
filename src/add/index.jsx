@@ -32,7 +32,7 @@ const AddRecipe = () => {
   const tagList = ['breakfast', 'lunch', 'dinner', 'appetizer', 'dessert', 'drink', 'snack', 'vegetarian']
   const tagListElement = tagList.map(tag => (
     <button key={tag} className={`border-2 border-green-variant text-green-accent px-2 py-1 rounded-md font-medium
-    ${recipeData.tags.includes(tag) ? 'text-white bg-green-accent' : ''}`}
+    ${recipeData.tags.includes(tag) ? 'text-whitegray bg-green-accent' : ''}`}
       onClick={() => setRecipeData(prevData => {
         const tagList = prevData.tags
         tagList.includes(tag) ? tagList.splice(tagList.indexOf(tag), 1) : tagList.push(tag)
@@ -107,137 +107,140 @@ const AddRecipe = () => {
   }
   console.log(recipeData);
   return (
-    <section className='pb-8 pt-4 mx-40 '>
-      <div className=' pb-2 font-semibold mb-4 border-b-2 flex justify-between px-4'>
-        <h1 className='text-3xl text-gray-500'>Create new recipe</h1>
-        <button className='flex items-center border text-xl py-1 px-2 text-gray-500 hover:bg-red-100 hover:text-gray-600 space-x-1 rounded'
-        onClick={()=>navigate(-1)}>
-          <XCircleIcon style='w-6 h-6' />
-          <span className=''>Cancel</span>
-        </button>
-      </div>
-      <div className='flex space-x-8 text-lg'>
-        <div className='w-6/12 space-y-6  '>
-          <div className='flex flex-col'>
-            <label className={`${style.heading}`} htmlFor='title'>Title</label>
-            <input type='text' id='title' className={`${style.input}`} placeholder='Recipe name' name='title'
-              onChange={handleChange} />
-          </div>
-          <div className='flex flex-col'>
-            <label className={`${style.heading}`} htmlFor='description'>Description</label>
-            <input type='text' id='description' className={`pb-4 ${style.input}`} placeholder='Recipe description' name='description'
-              onChange={handleChange} />
-          </div>
-          <div className='flex flex-col space-y-2'>
-            <h1 className={`${style.heading}`}>Tags</h1>
-            <div className='flex flex-wrap gap-2'>{tagListElement}</div>
-          </div>
-          <div className='flex flex-col'>
-            <h1 className={`${style.heading}`}>Yield</h1>
-            <div className='flex gap-2'>
-              <input type='number' className={`w-24 text-center ${style.input}`} placeholder={1} name='yield'
-                onChange={handleChange} value={recipeData.yield} />
-              <input type='text' placeholder='serves' className={`w-32 text-center ${style.input}`} name='unit'
+    <section className='py-2 flex justify-center '>
+      <div className='max-w-8xl px-8 pt-2 pb-8 rounded bg-gray-50'>
+        <div className=' pb-2 font-semibold mb-4 border-b-2 flex justify-between'>
+          <h1 className='text-3xl text-gray-600'>Create new recipe</h1>
+          <button className='flex items-center border-2 text-xl py-1 px-2 text-gray-500 hover:bg-red-100 hover:text-gray-600 space-x-1 rounded'
+            onClick={() => navigate(-1)}>
+            <XCircleIcon style='w-6 h-6' />
+            <span className=''>Cancel</span>
+          </button>
+        </div>
+        <div className='flex space-x-8 text-lg'>
+          <div className='w-6/12 space-y-6  '>
+            <div className='flex flex-col'>
+              <label className={`${style.heading}`} htmlFor='title'>Title</label>
+              <input type='text' id='title' className={`${style.input}`} placeholder='Recipe name' name='title'
                 onChange={handleChange} />
             </div>
-          </div>
-          <div className='flex flex-col'>
-            <h1 className={`${style.heading}`}>Photos</h1>
-            <div className='flex flex-wrap gap-4'>
-              {photosElement}
-              {(recipeData.photos.length < 8) && <div className='w-40 h-40 border-4 border-gray-300 border-dashed rounded-xl flex items-center justify-center cursor-pointer'
-                onClick={() => imgInput.current.click()}>
-                <PlusCircleIcon style='w-24 h-24 text-gray-200' />
-              </div>}
-            </div>
-            <input type='file' className='hidden' ref={imgInput} onChange={(e) => setRecipeData(prevData => {
-              const newPhotos = prevData.photos
-              newPhotos.push(e.target.files[0])
-              return { ...prevData, photos: newPhotos }
-            })} />
-          </div>
-          <div className='flex flex-col'>
-            <label htmlFor='nutritions' className={`${style.heading}`}>Nutrition</label>
-            <textarea rows={5} className={`${style.input}`} placeholder='100 Calories' id='nutritions' name='nutritions' onChange={handleChange}></textarea>
-          </div>
-        </div>
-        <div className='w-6/12 space-y-8'>
-          <div className='flex gap-16'>
             <div className='flex flex-col'>
-              <h1 className={`${style.heading}`}>Preparation time</h1>
+              <label className={`${style.heading}`} htmlFor='description'>Description</label>
+              <input type='text' id='description' className={`pb-4 ${style.input}`} placeholder='Recipe description' name='description'
+                onChange={handleChange} />
+            </div>
+            <div className='flex flex-col space-y-2'>
+              <h1 className={`${style.heading}`}>Tags</h1>
+              <div className='flex flex-wrap gap-2'>{tagListElement}</div>
+            </div>
+            <div className='flex flex-col'>
+              <h1 className={`${style.heading}`}>Yield</h1>
               <div className='flex gap-2'>
-                <input type='number' className={`w-16 text-center ${style.input}`} placeholder='00' name='cookTimeHour' value={recipeData.cookTimeHour}
-                  onChange={handleChange} />
-                <span className={`text-2xl font-semibold`}>:</span>
-                <input type='number' className={`w-16 text-center ${style.input}`} placeholder='00' name='cookTimeMinute' value={recipeData.cookTimeMinute}
-                  onChange={handleChange} />
-                <span className={`text-2xl font-semibold`}>:</span>
-                <input type='number' className={`w-16 text-center ${style.input}`} placeholder='00' name='cookTimeSecond' value={recipeData.cookTimeSecond}
+                <input type='number' className={`w-24 text-center ${style.input}`} placeholder={1} name='yield'
+                  onChange={handleChange} value={recipeData.yield} />
+                <input type='text' placeholder='serves' className={`w-32 text-center ${style.input}`} name='unit'
                   onChange={handleChange} />
               </div>
             </div>
             <div className='flex flex-col'>
-              <h1 className={`${style.heading}`}>Cook time</h1>
-              <div className='flex gap-2'>
-                <input type='number' className={`w-16 text-center ${style.input}`} placeholder='00' name='prepTimeHour' value={recipeData.prepTimeHour}
-                  onChange={handleChange} />
-                <span className={`text-2xl font-semibold`}>:</span>
-                <input type='number' className={`w-16 text-center ${style.input}`} placeholder='00' name='prepTimeMinute' value={recipeData.prepTimeMinute}
-                  onChange={handleChange} />
-                <span className={`text-2xl font-semibold`}>:</span>
-                <input type='number' className={`w-16 text-center ${style.input}`} placeholder='00' name='prepTimeSecond' value={recipeData.prepTimeSecond}
-                  onChange={handleChange} />
+              <h1 className={`${style.heading}`}>Photos</h1>
+              <div className='flex flex-wrap gap-4'>
+                {photosElement}
+                {(recipeData.photos.length < 8) &&
+                  <div className='w-40 h-40 border-4 bg-gray-100 border-gray-300 border-dashed rounded-xl flex items-center justify-center cursor-pointer'
+                    onClick={() => imgInput.current.click()}>
+                    <PlusCircleIcon style='w-24 h-24 text-gray-200' />
+                  </div>}
               </div>
+              <input type='file' className='hidden' ref={imgInput} onChange={(e) => setRecipeData(prevData => {
+                const newPhotos = prevData.photos
+                newPhotos.push(e.target.files[0])
+                return { ...prevData, photos: newPhotos }
+              })} />
+            </div>
+            <div className='flex flex-col'>
+              <label htmlFor='nutritions' className={`${style.heading}`}>Nutrition</label>
+              <textarea rows={5} className={`${style.input}`} placeholder='100 Calories' id='nutritions' name='nutritions' onChange={handleChange}></textarea>
             </div>
           </div>
-          <div className='flex space-x-32'>
-            <div>
-              <h1 className={`${style.heading}`}>Favourite</h1>
-              <label className="relative inline-flex items-center cursor-pointer">
-                <input type="checkbox" className="sr-only peer" checked={recipeData.isFavourite}
-                  onChange={() => { setRecipeData(prevData => { return { ...prevData, isFavourite: !prevData.isFavourite } }) }} />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-variant"></div>
-              </label>
-            </div>
-            <div>
-              <h1 className={`${style.heading}`}>Rating</h1>
-              <div className='flex space-x-2'>
-                {starsElement}
+          <div className='w-6/12 space-y-8'>
+            <div className='flex gap-16'>
+              <div className='flex flex-col'>
+                <h1 className={`${style.heading}`}>Preparation time</h1>
+                <div className='flex gap-2'>
+                  <input type='number' className={`w-16 text-center ${style.input}`} placeholder='00' name='cookTimeHour' value={recipeData.cookTimeHour}
+                    onChange={handleChange} />
+                  <span className={`text-2xl font-semibold`}>:</span>
+                  <input type='number' className={`w-16 text-center ${style.input}`} placeholder='00' name='cookTimeMinute' value={recipeData.cookTimeMinute}
+                    onChange={handleChange} />
+                  <span className={`text-2xl font-semibold`}>:</span>
+                  <input type='number' className={`w-16 text-center ${style.input}`} placeholder='00' name='cookTimeSecond' value={recipeData.cookTimeSecond}
+                    onChange={handleChange} />
+                </div>
+              </div>
+              <div className='flex flex-col'>
+                <h1 className={`${style.heading}`}>Cook time</h1>
+                <div className='flex gap-2'>
+                  <input type='number' className={`w-16 text-center ${style.input}`} placeholder='00' name='prepTimeHour' value={recipeData.prepTimeHour}
+                    onChange={handleChange} />
+                  <span className={`text-2xl font-semibold`}>:</span>
+                  <input type='number' className={`w-16 text-center ${style.input}`} placeholder='00' name='prepTimeMinute' value={recipeData.prepTimeMinute}
+                    onChange={handleChange} />
+                  <span className={`text-2xl font-semibold`}>:</span>
+                  <input type='number' className={`w-16 text-center ${style.input}`} placeholder='00' name='prepTimeSecond' value={recipeData.prepTimeSecond}
+                    onChange={handleChange} />
+                </div>
               </div>
             </div>
-          </div>
-          <div className='flex flex-col justify-center'>
-            <h1 className={`${style.heading}`}>Ingredients</h1>
-            <div className='py-1'>{ingredientsElement}</div>
-            <div className='flex space-x-2 text-lg'>
-              <div className='flex flex-col w-7/12'>
-                <label htmlFor='name' className='font-medium text-green-accent text-base'>Name</label>
-                <input type='text' placeholder='Ingredient' className={`w-full ${style.input}`} name='ingredientName'
-                  onKeyDown={(e) => { e.key === 'Enter' && addIngredient() }}
-                  onChange={handleChange} value={recipeData.ingredientName} />
+            <div className='flex space-x-32'>
+              <div>
+                <h1 className={`${style.heading}`}>Favourite</h1>
+                <label className="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" className="sr-only peer" checked={recipeData.isFavourite}
+                    onChange={() => { setRecipeData(prevData => { return { ...prevData, isFavourite: !prevData.isFavourite } }) }} />
+                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-variant"></div>
+                </label>
               </div>
-              <div className='flex flex-col w-2/12'>
-                <label htmlFor='quantity' className='font-medium text-green-accent text-base'>Quantity</label>
-                <input type='number' placeholder='1' className={`text-center ${style.input}`} name='ingredientQuantity'
-                  onKeyDown={(e) => { e.key === 'Enter' && addIngredient() }}
-                  onChange={handleChange} value={recipeData.ingredientQuantity} />
+              <div>
+                <h1 className={`${style.heading}`}>Rating</h1>
+                <div className='flex space-x-2'>
+                  {starsElement}
+                </div>
               </div>
-              <div className='flex flex-col w-2/12'>
-                <label htmlFor='metric' className='font-medium text-green-accent text-base'>Metric</label>
-                <input type='text' placeholder='kg' className={`text-center ${style.input}`} name='ingredientMetric'
-                  onKeyDown={(e) => { e.key === 'Enter' && addIngredient() }}
-                  onChange={handleChange} value={recipeData.ingredientMetric} />
-              </div>
-              <button className='flex items-center pt-6' onClick={addIngredient}><PlusCircleIcon style='w-10 h-10 text-gray-400 hover:text-green-accent' /></button>
             </div>
-          </div>
-          <div className='flex flex-col justify-center'>
-            <h1 className={`${style.heading}`}>Instructions</h1>
-            <span className='text-base pb-1 italic'>* Each step is separated by new line</span>
-            <textarea name="steps" rows='10' className={`w-full ${style.input}`} placeholder='Step-by-step instructions for this recipe'></textarea>
-          </div>
-          <div className='flex justify-end pr-4'>
-            <button className='bg-green-accent text-white border-2 border-green-variant hover:opacity-90 py-1 w-48 rounded-full text-xl'>Save</button>
+            <div className='flex flex-col justify-center'>
+              <h1 className={`${style.heading}`}>Ingredients</h1>
+              <div className='py-1'>{ingredientsElement}</div>
+              <div className='flex space-x-2 text-lg'>
+                <div className='flex flex-col w-7/12'>
+                  <label htmlFor='name' className='font-medium text-green-accent text-base'>Name</label>
+                  <input type='text' placeholder='Ingredient' className={`w-full ${style.input}`} name='ingredientName'
+                    onKeyDown={(e) => { e.key === 'Enter' && addIngredient() }}
+                    onChange={handleChange} value={recipeData.ingredientName} />
+                </div>
+                <div className='flex flex-col w-2/12'>
+                  <label htmlFor='quantity' className='font-medium text-green-accent text-base'>Quantity</label>
+                  <input type='number' placeholder='1' className={`text-center ${style.input}`} name='ingredientQuantity'
+                    onKeyDown={(e) => { e.key === 'Enter' && addIngredient() }}
+                    onChange={handleChange} value={recipeData.ingredientQuantity} />
+                </div>
+                <div className='flex flex-col w-2/12'>
+                  <label htmlFor='metric' className='font-medium text-green-accent text-base'>Metric</label>
+                  <input type='text' placeholder='kg' className={`text-center ${style.input}`} name='ingredientMetric'
+                    onKeyDown={(e) => { e.key === 'Enter' && addIngredient() }}
+                    onChange={handleChange} value={recipeData.ingredientMetric} />
+                </div>
+                <button className='flex items-center pt-6' onClick={addIngredient}><PlusCircleIcon style='w-10 h-10 text-gray-400 hover:text-green-accent' /></button>
+              </div>
+            </div>
+            <div className='flex flex-col justify-center'>
+              <h1 className={`${style.heading}`}>Instructions</h1>
+              <span className='text-base pb-1 italic'>* Each step is separated by new line</span>
+              <textarea name="steps" rows='10' className={`w-full ${style.input}`} placeholder='Step-by-step instructions for this recipe'></textarea>
+            </div>
+            <div className='flex justify-end pr-4'>
+              <button className='bg-green-accent text-whitegray border-2 border-green-variant hover:opacity-90 py-1 w-48 rounded-full text-xl'>Save</button>
+            </div>
           </div>
         </div>
       </div>

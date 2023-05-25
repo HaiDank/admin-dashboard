@@ -4,8 +4,7 @@ import ClockIcon from '../assets/ClockIcon'
 import KnifeForkIcon from '../assets/KnifeForkIcon'
 import LeafIcon from '../assets/LeafIcon'
 import StarIcon from '../assets/StarIcon'
-import ListViewIcon from '../assets/ListViewIcon'
-import GalleryViewIcon from '../assets/GalleryViewIcon'
+import ViewIcon from '../assets/ViewIcon'
 import FilteringIcon from '../assets/FilteringIcon'
 import HeartIcon from '../assets/HeartIcon'
 import SearchingIcon from '../assets/SearchingIcon'
@@ -22,17 +21,17 @@ const Recipe = () => {
   //   // }).then(res => res.json()).then(data => {
   //   //   setData(data)
   //   // })
-  //   axios('https://recipehub.herokuapp.com/api/v1/user/recipes', {headers : {
+  //   axios.get('https://recipehub.herokuapp.com/api/v1/user/recipes', {headers : {
   //     'JWT' : 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGdtYWlsLmNvbSIsImlhdCI6MTY4NDgzMDEzOSwiZXhwIjoxNjg0OTE2NTM5fQ.BMhN_6KHnyT36HE34txmS1pgRDTd9K-cQKeDbB1SwgQ'
-  //   }})
+  //   }}).then(response => setData(response))
   // }, []);
-  console.log(data)
 
   const [viewOption, setViewOption] = useState('list')
   const [showedFilter, setShowedFilter] = useState(true)
   const [keyword, setKeyword] = useState('')
   const [searchResult, setSearchResult] = useState('')
   const [filter, setFilter] = useState({ sortingBy: '', isAscending: true, tags: [], ingredients: [], isFavourite: false })
+  const isFiltering = filter.sortingBy || filter.tags.length || filter.ingredients.length  || filter.isFavourite
   const searchByKeyword = (e) => {
     if (e.key === 'Enter' || e.keyCode === 13) {
       setSearchResult(keyword)
@@ -153,10 +152,10 @@ const Recipe = () => {
       </div>)
   })
   return (
-    <section className='flex mt-24 mx-20 gap-6'>
-      <div className='w-4/5 border-gray-400 rounded'>
+    <section className='flex justify-center mt-24 mx-8 gap-6'>
+      <div className='w-4/5 border-gray-400 rounded max-w-7xl'>
         <div className='select-none flex justify-between pb-2 border-b-2 border-green-accent text-green-accent'>
-          <div className='flex items-center hover:bg-gray-200 rounded cursor-pointer p-2 '
+          <div className={`flex items-center rounded cursor-pointer p-2 hover:bg-gray-200 ${isFiltering && !showedFilter ? 'underline underline-offset-2' : ''}`}
             onClick={() => setShowedFilter(preState => !preState)}>
             <FilteringIcon style='w-6 h-6' />
             <span className='text-xl px-1 font-semibold'>Filter</span>
@@ -167,15 +166,10 @@ const Recipe = () => {
               value={keyword} onChange={(e) => setKeyword(e.target.value)} onKeyDown={searchByKeyword} />
             <button onClick={() => setKeyword('')}><XCircleIcon style='w-8 h-8 text-gray-500 hover:fill-gray-200' /></button>
           </div>
-          <div className='hover:bg-gray-200 rounded cursor-pointer p-2'>
-            {viewOption === 'list' && <div className='flex items-center' onClick={() => setViewOption('gallery')}>
-              <span className='text-xl px-1 font-semibold'>List View</span>
-              <ListViewIcon style='w-6 h-6' />
-            </div>}
-            {viewOption === 'gallery' && <div className='flex items-center' onClick={() => setViewOption('list')}>
-              <span className='text-lg px-1 font-semibold'>Gallery View</span>
-              <GalleryViewIcon style='w-6 h-6' />
-            </div>}
+          <div className='hover:bg-gray-200 rounded cursor-pointer p-2 w-44 flex justify-center items-center'
+            onClick={() => setViewOption(viewOption === 'list' ? 'gallery' : 'list')}>
+            <span className='text-xl px-1 font-semibold'>{viewOption === 'list' ? "List View" : "Gallery View"}</span>
+            <ViewIcon style='w-6 h-6' viewOption={viewOption} />
           </div>
         </div>
         {showedFilter && <RecipeFilter filter={filter} setFilter={setFilter} />}
@@ -185,7 +179,7 @@ const Recipe = () => {
         {viewOption === 'list' && <div className='p-4 space-y-4'>{recipesElement}</div>}
         {viewOption === 'gallery' && <div className='p-4 flex flex-wrap gap-5'>{recipesElement}</div>}
       </div>
-      <div className='min-w-[20rem] pt-4'>
+      <div className='w-80 pt-4'>
         <SideOptions />
       </div>
     </section>

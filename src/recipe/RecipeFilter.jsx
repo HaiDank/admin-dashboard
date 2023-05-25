@@ -40,7 +40,7 @@ const RecipeFilter = ({ filter, setFilter }) => {
       <div className='flex space-x-4 border-b border-gray-200 pb-2'>
         <h1 className='font-bold'>Sort by:</h1>
         <div className='flex flex-wrap gap-2'>{sortingOptionsElement}</div>
-        <button className='hover:bg-green-50 p-1 cursor-pointer rounded'
+        <button className='hover:bg-gray-200 p-1 cursor-pointer rounded'
           onClick={() => setFilter(preFilter => { return { ...preFilter, isAscending: !preFilter.isAscending } })}>
           <SortingIcon style='w-6 h-6 text-green-accent' isAscending={filter.isAscending} />
         </button>

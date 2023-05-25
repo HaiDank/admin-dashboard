@@ -11,13 +11,14 @@ export default {
       },
       colors:{
         'black' : '#212121',
-        'white' : '#eeeeee',
+        'whitegray' : '#eeeeee',
         'green-accent' : '#1d6d03',
         'green-variant' : '#8ac775',
         'orange-accent': '#f2b963',
       },
       spacing:{
         '18' : '4.5rem',
+        '8xl': '1400px',
       }
     },
   },
