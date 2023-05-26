@@ -30,10 +30,8 @@ function TopNav() {
     <div className='headnav fixed w-full md:static'>
       {/* toggleMenuButton */}
       <Button customFunc={() => handleToggleMenu()} icon={menuToggleIcon} />
-      {/*  */}
       {/* toggleThemeButton */}
       <SwitchButton isOn={isDarkMode} customFunc={() => toggleDarkMode()} />
-      {/*  */}
     </div>
   );
 }

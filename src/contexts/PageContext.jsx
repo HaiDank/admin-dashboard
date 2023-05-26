@@ -8,7 +8,7 @@ export const ContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (localStorage.getItem("theme") === "dark") setIsDarkMode(true);
-  }, []);
+  }, [isDarkMode]);
 
   const toggleDarkMode = () => {
     const currentMode = !isDarkMode;
