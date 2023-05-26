@@ -1,18 +1,19 @@
-import React from 'react'
-import { Route, Routes } from 'react-router-dom'
-import Header from './header'
-import Home from './home'
-import Recipe from './recipe'
-import MealPlanner from './mealplanner'
-import ShoppingList from './shoppinglist'
-import AddRecipe from './add'
-import FriendRecipe from './friends'
-import GlobalRecipe from './global'
-import RecipeExport from './export'
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import Header from "./header";
+import Home from "./home";
+import Recipe from "./recipe";
+import MealPlanner from "./mealplanner";
+import ShoppingList from "./shoppinglist";
+import AddRecipe from "./add";
+import FriendRecipe from "./friends";
+import GlobalRecipe from "./global";
+import RecipeExport from "./export";
+import AdminHome from "./pages/AdminHome.jsx";
 const App = () => {
   return (
     <>
-      <Header />
+      {/* <Header />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/recipe' >
@@ -24,9 +25,10 @@ const App = () => {
         </Route>
         <Route path='/mealplanner' element={<MealPlanner />} />
         <Route path='shoppinglist' element={<ShoppingList />} />
-      </Routes>
+      </Routes> */}
+      <AdminHome />
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;
