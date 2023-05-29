@@ -7,14 +7,14 @@ const RecipeFilter = ({ filter, setFilter }) => {
   const sortingOptions = ['title', 'recent', 'time', 'rating', 'yield']
   const tagList = ['breakfast', 'lunch', 'dinner', 'appetizer', 'dessert', 'drink', 'snack', 'vegetarian']
   const sortingOptionsElement = sortingOptions.map(sortingOption => (
-    <button key={sortingOption} className={` px-2 rounded font-medium border-[2px]
-      ${sortingOption === filter.sortingBy ? 'border-green-accent bg-green-100 text-green-accent  ' : 'border-gray-400 text-gray-500'} `}
+    <button key={sortingOption} className={` px-2 rounded font-medium border-2
+      ${sortingOption === filter.sortingBy ? 'border-green-accent bg-green-100 text-green-accent  ' : 'border-gray-400 text-gray-500 hover:border-green-accent'} `}
       onClick={() => setFilter(preFilter => { return { ...preFilter, sortingBy: sortingOption !== preFilter.sortingBy ? sortingOption : '' } })}>
       {sortingOption}
     </button>))
   const tagListElement = tagList.map(tag => (
     <button key={tag} className={`border px-2 rounded-full
-      ${filter.tags.includes(tag) ? 'border-green-accent bg-green-200 text-green-accent' : 'border-gray-400 text-gray-600'}`}
+      ${filter.tags.includes(tag) ? 'border-green-accent bg-green-200 text-green-accent' : 'border-gray-400 text-gray-600 hover:border-green-accent'}`}
       onClick={() => setFilter(preFilter => {
         const tagList = preFilter.tags
         tagList.includes(tag) ? tagList.splice(tagList.indexOf(tag), 1) : tagList.push(tag)
@@ -51,7 +51,7 @@ const RecipeFilter = ({ filter, setFilter }) => {
       </div>
       <div className='flex space-x-2 border-b border-gray-200 pb-2'>
         <h1 className='font-bold'>Ingredients:</h1>
-        <input type="text" className='bg-gray-50 px-0.5 focus:outline-none border-b border-green-accent text-center' value={ingredientInput} onChange={(e) => setIngredientInput(e.target.value)}
+        <input type="text" className='bg-gray-100 px-0.5 focus:outline-none border-b border-green-accent text-center' value={ingredientInput} onChange={(e) => setIngredientInput(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && addFilteringIngredient(e)} />
         <button onClick={addFilteringIngredient}>
           <PlusCircleIcon style='w-6 h-6 text-green-accent'/>

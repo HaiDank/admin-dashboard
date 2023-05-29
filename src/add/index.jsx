@@ -144,19 +144,21 @@ const AddRecipe = () => {
             </div>
             <div className='flex flex-col'>
               <h1 className={`${style.heading}`}>Photos</h1>
-              <div className='flex flex-wrap gap-4'>
+              <div className='flex flex-wrap gap-2 max-w-2xl'>
                 {photosElement}
                 {(recipeData.photos.length < 8) &&
                   <div className='w-40 h-40 border-4 bg-gray-100 border-gray-300 border-dashed rounded-xl flex items-center justify-center cursor-pointer'
                     onClick={() => imgInput.current.click()}>
                     <PlusCircleIcon style='w-24 h-24 text-gray-200' />
                   </div>}
+                <input type='file' className='hidden' accept="image/*" ref={imgInput} onChange={(e) => {
+                  const image = e.target.files[0]
+                  image && setRecipeData(prevData => {
+                    const newPhotos = prevData.photos
+                    newPhotos.push(image)
+                    return { ...prevData, photos: newPhotos }
+                  })}} />
               </div>
-              <input type='file' className='hidden' ref={imgInput} onChange={(e) => setRecipeData(prevData => {
-                const newPhotos = prevData.photos
-                newPhotos.push(e.target.files[0])
-                return { ...prevData, photos: newPhotos }
-              })} />
             </div>
             <div className='flex flex-col'>
               <label htmlFor='nutritions' className={`${style.heading}`}>Nutrition</label>
