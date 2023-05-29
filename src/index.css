@@ -7,3 +7,29 @@
         @apply bg-gray-100
     }
 }
+
+@layer components {
+
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover, 
+    input:-webkit-autofill:focus, 
+    input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px #f0fdf4 inset !important;
+    }
+
+    .button-primary {
+        @apply border-2 w-36 px-2 py-1 bg-green-accent border-green-variant text-lg text-whitegray font-semibold hover:opacity-90 rounded-full
+    }
+
+    .button-secondary {
+        @apply border-2 w-36 px-2 py-1 border-green-variant text-green-accent text-lg hover:bg-green-100 font-semibold rounded-full
+    }
+
+    .button-primary-2 {
+        @apply border w-full p-2 bg-green-accent border-green-variant text-lg text-whitegray font-semibold hover:opacity-90 rounded-lg
+    }
+
+    .button-secondary-2 {
+        @apply border-2 w-full p-2 border-green-variant text-green-accent text-lg hover:bg-green-100 font-semibold rounded-lg
+    }
+}
