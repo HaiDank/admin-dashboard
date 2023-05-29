@@ -13,7 +13,6 @@ const imageData = [
     alt: "image1",
     url: "img/register/organize.jpg"
   },
-  
   {
     label: "Plan your meals",
     alt: "image3",
