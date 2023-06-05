@@ -1,8 +1,8 @@
 import React, { useContext, useState, createContext, useEffect } from "react";
 
-const PageContext = createContext();
+const ThemeContext = createContext();
 
-export const ContextProvider = ({ children }) => {
+export const ThemeProvider = ({ children }) => {
   const [activeMenu, setActiveMenu] = useState(true);
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -18,7 +18,7 @@ export const ContextProvider = ({ children }) => {
   };
 
   return (
-    <PageContext.Provider
+    <ThemeContext.Provider
       value={{
         activeMenu,
         setActiveMenu,
@@ -27,8 +27,8 @@ export const ContextProvider = ({ children }) => {
       }}
     >
       {children}
-    </PageContext.Provider>
+    </ThemeContext.Provider>
   );
 };
 
-export const usePageContext = () => useContext(PageContext);
+export const useThemeContext = () => useContext(ThemeContext);

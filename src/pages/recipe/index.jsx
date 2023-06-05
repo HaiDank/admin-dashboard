@@ -12,6 +12,7 @@ import XCircleIcon from '../../assets/XCircleIcon'
 import SideOptions from './SideOptions'
 import RecipeFilter from './RecipeFilter'
 import axios from 'axios'
+import dummyRecipes from '../../dummyRecipes'
 const Recipe = () => {
   const [data, setData] = useState()
 
@@ -21,15 +22,12 @@ const Recipe = () => {
     // }).then(res => res.json()).then(data => {
     //   setData(data)
     // })
-    axios.get('https://recipehub.herokuapp.com/api/v1/user/recipes', {
-      headers: {
-        'JWT': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGdtYWlsLmNvbSIsImlhdCI6MTY4NDgzMDEzOSwiZXhwIjoxNjg0OTE2NTM5fQ.BMhN_6KHnyT36HE34txmS1pgRDTd9K-cQKeDbB1SwgQ',
-      }
-    }).then(response => setData(response))
+
+    // axios.get('https://recipehub.herokuapp.com/api/v1/global/recipes').then(response => { setData(response.data) })
   }, []);
   console.log(data);
 
-  const [viewOption, setViewOption] = useState('list')
+  const [viewOption, setViewOption] = useState('gallery')
   const [showedFilter, setShowedFilter] = useState(true)
   const [keyword, setKeyword] = useState('')
   const [searchResult, setSearchResult] = useState('')
@@ -40,69 +38,7 @@ const Recipe = () => {
       setSearchResult(keyword)
     }
   }
-  const dummyRecipes = [{
-    imgUrl: 'https://natashaskitchen.com/wp-content/uploads/2020/03/Pan-Seared-Steak-4.jpg',
-    title: 'Pan Seared Steak',
-    tags: ['breakfast', 'lunch', 'dinner'],
-    prepTime: '00:05',
-    cookTime: '00:10',
-    recipeYield: '2 bowl',
-    ingredients: ['steak', 'garlic', 'carrot'],
-    rating: '4',
-    isFavourite: true,
-  }, {
-    imgUrl: 'https://tmbidigitalassetsazure.blob.core.windows.net/rms3-prod/attachments/37/1200x1200/Crispy-Fried-Chicken_EXPS_TOHJJ22_6445_DR%20_02_03_11b.jpg',
-    title: 'Crispy Fried Chicken',
-    tags: ['appetizer', 'snack'],
-    prepTime: '00:55',
-    cookTime: '01:30',
-    recipeYield: '4 disk',
-    ingredients: ['chieck', 'crispy powder'],
-    rating: '5',
-    isFavourite: true
-  }, {
-    imgUrl: 'https://natashaskitchen.com/wp-content/uploads/2020/03/Pan-Seared-Steak-4.jpg',
-    title: 'Pan Seared Steak',
-    tags: ['breakfast', 'lunch', 'dinner'],
-    prepTime: '00:05',
-    cookTime: '00:10',
-    recipeYield: '2 bowl',
-    ingredients: ['steak', 'garlic', 'carrot'],
-    rating: '3',
-    isFavourite: false,
-  }, {
-    imgUrl: 'https://tmbidigitalassetsazure.blob.core.windows.net/rms3-prod/attachments/37/1200x1200/Crispy-Fried-Chicken_EXPS_TOHJJ22_6445_DR%20_02_03_11b.jpg',
-    title: 'Crispy Fried Chicken',
-    tags: ['appetizer', 'snack'],
-    prepTime: '00:55',
-    cookTime: '01:30',
-    recipeYield: '4 disk',
-    ingredients: ['chieck', 'crispy powder'],
-    rating: '0',
-    isFavourite: true
-  }, {
-    imgUrl: 'https://natashaskitchen.com/wp-content/uploads/2020/03/Pan-Seared-Steak-4.jpg',
-    title: 'Pan Seared Steak',
-    tags: ['breakfast', 'lunch', 'dinner'],
-    prepTime: '00:05',
-    cookTime: '00:10',
-    recipeYield: '2 bowl',
-    ingredients: ['steak', 'garlic', 'carrot'],
-    rating: '2',
-    isFavourite: true,
-  }, {
-    imgUrl: 'https://tmbidigitalassetsazure.blob.core.windows.net/rms3-prod/attachments/37/1200x1200/Crispy-Fried-Chicken_EXPS_TOHJJ22_6445_DR%20_02_03_11b.jpg',
-    title: 'Crispy Fried Chicken',
-    tags: ['appetizer', 'snack'],
-    prepTime: '00:55',
-    cookTime: '01:30',
-    recipeYield: '4 disk',
-    ingredients: ['chieck', 'crispy powder'],
-    rating: '1',
-    isFavourite: false
-  }]
-
-
+ 
   const recipesElement = dummyRecipes.map(item => {
     const { imgUrl, title, tags, rating, prepTime, cookTime, recipeYield, ingredients, isFavourite } = item
     const stars = []
@@ -141,7 +77,7 @@ const Recipe = () => {
           </div>}
 
         {viewOption === 'gallery' &&
-          <div className='w-68 h-80 flex flex-col border-2 border-gray-200 rounded px-2 py-2 space-y-1 bg-gray-100 hover:border-green-accent cursor-pointer relative'>
+          <div className='w-72 h-80 flex flex-col border-2 border-gray-200 rounded px-2 py-2 space-y-1 bg-gray-100 hover:border-green-accent cursor-pointer relative'>
             <img src={imgUrl} alt="" className='w-full h-52 object-cover rounded' />
             <h1 className='text-xl font-bold text-green-accent pt-2'>{title}</h1>
             <div className='flex font-medium space-x-1'><ClockIcon style='w-6 h-6' /><span>{msConverter(300000)}</span></div>
@@ -155,16 +91,16 @@ const Recipe = () => {
       </div>)
   })
   return (
-    <section className='flex justify-center  mx-8 gap-6'>
-      <div className='max-w-8xl w-full flex space-x-8 rounded'>
-        <div className='border-gray-400 py-4 rounded max-w-7xl w-full px-8 bg-gray-50'>
+    <section className='flex justify-center pt-4 mx-8 gap-6'>
+      <div className='max-w-8xl w-full flex space-x-4 rounded'>
+        <div className='border-gray-400 rounded max-w-7xl w-full space-y-4 bg-gray-50 py-4 px-8'>
           <div className='select-none flex justify-between pb-2 border-b-2 border-green-accent text-green-accent'>
             <div className={`flex items-center rounded cursor-pointer p-2 hover:bg-gray-200 ${isFiltering && !showedFilter ? 'underline underline-offset-2' : ''}`}
               onClick={() => setShowedFilter(preState => !preState)}>
               <FilteringIcon style='w-6 h-6' />
               <span className='text-xl px-1 font-semibold'>Filter</span>
             </div>
-            <div className='flex items-center border-2 border-green-accent rounded-xl cursor-pointer px-2 flex-1 max-w-[32rem]'>
+            <div className='flex items-center border-2 border-green-accent rounded-xl relative bottom-1 left-4 px-2 flex-1 max-w-[32rem] cursor-pointer'>
               <label htmlFor='search'><SearchingIcon style='w-8 h-8 cursor-pointer' /></label>
               <input className='bg-transparent focus:outline-none rounded-full w-full text-lg p-2 text-black' placeholder='Search recipes' id='search' autoComplete='off'
                 value={keyword} onChange={(e) => setKeyword(e.target.value)} onKeyDown={searchByKeyword} />
@@ -180,10 +116,10 @@ const Recipe = () => {
           {searchResult && <div className='flex rounded p-2 '>
             <p className='font-semibold text-2xl'>Search result for "<span className='text-green-accent'>{searchResult}</span>"</p>
           </div>}
-            {viewOption === 'list' && <div className='p-4 space-y-4'>{recipesElement}</div>}
-            {viewOption === 'gallery' && <div className='p-4 flex flex-wrap gap-8'>{recipesElement}</div>}
+          {viewOption === 'list' && <div className='py-2 space-y-4'>{recipesElement}</div>}
+          {viewOption === 'gallery' && <div className='py-2 flex flex-wrap gap-5'>{recipesElement}</div>}
         </div>
-        <div className=' pt-4'>
+        <div className='flex-1'>
           <SideOptions />
         </div>
       </div>

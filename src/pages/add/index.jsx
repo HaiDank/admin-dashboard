@@ -4,6 +4,7 @@ import StarIcon from '../../assets/StarIcon'
 import TrashIcon from '../../assets/TrashIcon'
 import XCircleIcon from '../../assets/XCircleIcon'
 import { useNavigate } from 'react-router-dom'
+import EyeIcon from '../../assets/EyeIcon'
 const AddRecipe = () => {
   const [recipeData, setRecipeData] = useState({
     title: '',
@@ -25,7 +26,8 @@ const AddRecipe = () => {
     ingredientQuantity: '',
     ingredientMetric: '',
     ingredients: [],
-    steps: ''
+    steps: '',
+    isPrivate: '',
   })
   const imgInput = useRef()
   const navigate = useNavigate()
@@ -63,7 +65,7 @@ const AddRecipe = () => {
   }
   const starsElement = stars.map((star, i) =>
     <button key={i} className='p-1'
-    onClick={() => { setRecipeData(prevData => { return { ...prevData, rating: (prevData.rating !== i + 1) ? i + 1 : 0 } }) }}>
+      onClick={() => { setRecipeData(prevData => { return { ...prevData, rating: (prevData.rating !== i + 1) ? i + 1 : 0 } }) }}>
       <StarIcon style={`w-7 h-7 stroke-transparent ${star ? 'fill-yellow-600' : 'fill-gray-300'}`} />
     </button>
   )
@@ -78,7 +80,7 @@ const AddRecipe = () => {
         <span className='font-semibold'>{ingredient.name}</span>{' '}x{' '}
         <span className='font-semibold'>{ingredient.quantity}</span>{' '}
         {ingredient.metric}
-        </span>
+      </span>
     </div>)
 
   const handleChange = (e) => {
@@ -108,7 +110,7 @@ const AddRecipe = () => {
   }
   console.log(recipeData);
   return (
-    <section className='py-2 flex justify-center '>
+    <section className='py-2 flex justify-center'>
       <div className='max-w-8xl px-8 pt-2 pb-8 rounded bg-gray-50'>
         <div className=' pb-2 font-semibold mb-4 border-b-2 flex justify-between'>
           <h1 className='text-3xl text-gray-600'>Create new recipe</h1>
@@ -230,7 +232,7 @@ const AddRecipe = () => {
                 </div>
                 <div className='flex flex-col w-2/12'>
                   <label htmlFor='metric' className='font-medium text-green-accent text-base'>Metric</label>
-                  <input type='text' placeholder='kg' className={`text-center ${style.input}`} name='ingredientMetric'
+                  <input type='text' placeholder='optional' className={`text-center ${style.input}`} name='ingredientMetric'
                     onKeyDown={(e) => { e.key === 'Enter' && addIngredient() }}
                     onChange={handleChange} value={recipeData.ingredientMetric} />
                 </div>
@@ -242,7 +244,15 @@ const AddRecipe = () => {
               <span className='text-base pb-1 italic'>* Each step is separated by new line</span>
               <textarea name="steps" rows='10' className={`w-full ${style.input}`} placeholder='Step-by-step instructions for this recipe'></textarea>
             </div>
-            <div className='flex justify-end pr-4'>
+            <div className='flex justify-between pr-4'>
+              <div className='flex items-center gap-2'>
+                <h1 className={`${style.heading}`}>Status:</h1>
+                <button className='flex items-center gap-2 border border-green-variant text-green-accent px-1 rounded-md font-medium hover:bg-green-100'
+                  onClick={() => { setRecipeData(prevData => { return { ...prevData, isPrivate: !prevData.isPrivate } }) }}>
+                  <EyeIcon style='w-6 h-6' isOn={!recipeData.isPrivate}/>
+                  <span className=''>{recipeData.isPrivate ? "Private" : "Public"}</span>
+                </button>
+              </div>
               <button className='button-primary w-48'>Save</button>
             </div>
           </div>

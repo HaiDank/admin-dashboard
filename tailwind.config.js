@@ -19,7 +19,6 @@ export default {
       },
       spacing: {
         18: "4.5rem",
-        "8xl": "1400px",
       },
       colors: {
         'black': '#212121',

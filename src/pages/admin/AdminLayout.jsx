@@ -6,12 +6,13 @@ import FeedbackPage from "./FeedbackPage/FeedbackPage";
 import UserMP from "./UserManagementPage/UserMP";
 import SideNav from "../../components/NavBar/SideNav";
 import TopNav from "../../components/NavBar/TopNav";
-import { usePageContext } from "../../contexts/PageContext";
+import { useThemeContext } from "../../contexts/ThemeContext";
+import RequireAuth from "../RequireAuth";
 
-function AdminHome() {
-  const { activeMenu, isDarkMode } = usePageContext();
+function AdminLayout() {
+  const { activeMenu, isDarkMode } = useThemeContext();
   return (
-    <div
+    <main
       className={
         isDarkMode ? "dark relative flex bg-slate-700" : "relative flex"
       }
@@ -38,14 +39,16 @@ function AdminHome() {
         <div>
           <Routes>
             <Route path='/' element={<DashBoard />} />
-            <Route path='/RecipeManagement' element={<RecipeMP />} />
-            <Route path='/Feedback' element={<FeedbackPage />} />
-            <Route path='/UserManagement' element={<UserMP />} />
+            <Route element={<RequireAuth />} >
+              <Route path='/RecipeManagement' element={<RecipeMP />} />
+              <Route path='/Feedback' element={<FeedbackPage />} />
+              <Route path='/UserManagement' element={<UserMP />} />
+            </Route>
           </Routes>
         </div>
       </div>
-    </div>
+    </main>
   );
 }
 
-export default AdminHome;
+export default AdminLayout;

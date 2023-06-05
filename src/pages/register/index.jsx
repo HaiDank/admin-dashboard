@@ -87,7 +87,7 @@ const Register = () => {
             </div>
             <button className='button-secondary-2 flex items-center justify-center space-x-4'>
               <img src="/img/googleIcon.png" alt="google icon" className='w-6 h-6' />
-              <span className='font-semibold'>Sign up with Google</span>
+              <span className='font-semibold'>Continue with Google</span>
             </button>
           </div>
         </div>

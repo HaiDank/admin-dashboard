@@ -1,11 +1,10 @@
 import React from "react";
-import { usePageContext } from "../../contexts/PageContext";
+import { useThemeContext } from "../../contexts/ThemeContext";
 import SwitchButton from "../SwitchButton";
 import Button from "../Button";
 
 function TopNav() {
-  const { activeMenu, setActiveMenu, toggleDarkMode, isDarkMode } =
-    usePageContext();
+  const { activeMenu, setActiveMenu, toggleDarkMode, isDarkMode } = useThemeContext();
 
   const handleToggleMenu = () => setActiveMenu(!activeMenu);
 

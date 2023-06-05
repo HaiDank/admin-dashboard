@@ -6,22 +6,22 @@ const imageData = [
   {
     label: "Simplify your life",
     alt: "image2",
-    url: "img/register/simplify.jpg"
-  },
-  {
-    label: "Organize recipes online",
-    alt: "image1",
-    url: "img/register/organize.jpg"
+    url: "img/register-carousel/simplify.jpg"
   },
   {
     label: "Plan your meals",
     alt: "image3",
-    url: "img/register/plan.jpg"
+    url: "img/register-carousel/plan.jpg"
+  },
+  {
+    label: "Organize recipes online",
+    alt: "image1",
+    url: "img/register-carousel/organize.jpg"
   },
   {
     label: "Find other recipes",
     alt: "image4",
-    url: "img/register/find.jpg"
+    url: "img/register-carousel/find.jpg"
   }
 ];
 

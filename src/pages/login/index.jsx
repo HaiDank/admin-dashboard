@@ -1,20 +1,24 @@
 import React from 'react'
 import { useState } from 'react'
 import EyeIcon from '../../assets/EyeIcon'
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import axios from '../../api/axios'
+import useAxios from '../../hooks/useAuth'
 
 const Login = () => {
   const [showingPassword, setShowingPassword] = useState(false)
   const [loginData, setLoginData] = useState({
-    email: '',
-    password : '',
+    email: 'user@gmail.com',
+    password: '123456',
   })
   const navigate = useNavigate()
-  const handleLoginDataChange = (e) =>{
-    const {name, value} = e.target
-    setLoginData(prevData => {return {...loginData, [name] : value}})
+  const handleLoginDataChange = (e) => {
+    const { name, value } = e.target
+    setLoginData(prevData => { return { ...loginData, [name]: value } })
   }
-  console.log(loginData)
+  const handleSubmit = () => {
+    axios.post('auth/basic/login', loginData).then(response => { console.log(response) })
+  }
   return (
     <section className='flex justify-center mx-8 items-center'>
       <div className='max-w-8xl w-full flex h-[56rem] py-8 relative'>
@@ -25,43 +29,46 @@ const Login = () => {
               <h1 className='text-4xl pb-2 font-semibold'>Welcome back</h1>
               <span className='text-gray-500'>Please enter your details</span>
             </div>
-            <button className='button-secondary-2 flex items-center justify-center space-x-4'>
-              <img src="/img/googleIcon.png" alt="google icon" className='w-6 h-6' />
-              <span className='font-semibold'>Log in with Google</span>
-            </button>
-            <div className='flex justify-center text-center border-b-2 border-gray-300 relative'>
-              <span className='absolute top-[-1rem] text-xl bg-gray-50 text-gray-500 px-2'>or</span>
-            </div>
             <div className='flex flex-col space-y-4'>
               <div>
-                <input type="text" className='pb-2 pt-4 text-lg px-2 bg-gray-50 border-b-2 focus:outline-gray-200 w-full' name='email' id='email' placeholder='Email' 
-                onChange={handleLoginDataChange}/>
+                <input type="text" className='pb-2 pt-4 text-lg px-2 bg-gray-50 border-b-2 focus:outline-gray-200 w-full' name='email' id='email' placeholder='Email'
+                  onChange={handleLoginDataChange} />
                 <span className='invisible text-sm'>Warning here</span>
               </div>
               <div className='relative'>
-                <input type={showingPassword ? 'text' : 'password'} className='pb-2 pt-4 text-lg px-2 bg-gray-50 border-b-2 focus:outline-gray-200 w-full pr-12' name='password' id='password' placeholder='Password' 
-                onChange={handleLoginDataChange}/>
+                <input type={showingPassword ? 'text' : 'password'} className='pb-2 pt-4 text-lg px-2 bg-gray-50 border-b-2 focus:outline-gray-200 w-full pr-12' name='password' id='password' placeholder='Password'
+                  onChange={handleLoginDataChange} />
                 {loginData.password && <button className='absolute top-4 right-3 text-gray-400 hover:text-gray-800 bg-gray-50 z-10'
-                onClick={()=>setShowingPassword(prevState => !prevState)}>
+                  onClick={() => setShowingPassword(prevState => !prevState)}>
                   <EyeIcon style='w-6 h-6' isOn={showingPassword} />
                 </button>}
                 <span className='invisible text-sm'>Warning here</span>
               </div>
-              <div className='space-x-2 flex items-center text-gray-600 select-none'>
-                <input type="checkbox" name='remember' id='remember' className='w-5 h-5 accent-gray-300' />
-                <label htmlFor='remember'>Remmeber me</label>
+              <div className='flex justify-between'>
+                <div className='space-x-2 flex items-center text-gray-600 select-none'>
+                  <input type="checkbox" name='remember' id='remember' className='w-5 h-5 accent-gray-300' />
+                  <label htmlFor='remember'>Remmeber me</label>
+                </div>
+                <div className='text-green-accent cursor-pointer flex justify-center px-2'>
+                  <span className='underline'>Forgotten password?</span>
+                </div>
               </div>
               <div className='flex justify-center'>
-                <button className='button-primary-2'>Log in</button>
+                <button className='button-primary-2'
+                  onClick={handleSubmit}>Log in</button>
               </div>
-              <div className='text-green-accent cursor-pointer flex justify-center px-2'>
-                <span className='underline'>Forgotten password?</span>
-              </div>
-              <div className='flex justify-center space-x-2 items-center'>
-                <span>Don't have an account?</span>
-                <button className='font-semibold text-lg text-green-accent hover:underline'
-                onClick={()=> navigate('/register')}>Sign up for free</button>
-              </div>
+            </div>
+            <div className='flex justify-center text-center border-b-2 border-gray-300 relative'>
+              <span className='absolute top-[-1rem] text-xl bg-gray-50 text-gray-500 px-2'>or</span>
+            </div>
+            <button className='button-secondary-2 flex items-center justify-center space-x-4'>
+              <img src="/img/googleIcon.png" alt="google icon" className='w-6 h-6' />
+              <span className='font-semibold'>Continue with google</span>
+            </button>
+            <div className='flex justify-center space-x-2 items-center'>
+              <span>Don't have an account?</span>
+              <button className='font-semibold text-lg text-green-accent hover:underline'
+                onClick={() => navigate('/register')}>Sign up for free</button>
             </div>
           </div>
         </div>

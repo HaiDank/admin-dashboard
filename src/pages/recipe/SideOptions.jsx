@@ -10,7 +10,7 @@ const SideOptions = () => {
     const navigate = useNavigate();
     const sideOptions = [{
         Icon: <AccessingIcon style='w-8 h-8' />,
-        text: 'Search global recipes',
+        text: 'Find other recipes',
         onClickFunction: function () {navigate('./global')}
     }, {
         Icon: <PlusIcon style='w-8 h-8' />,
@@ -35,9 +35,9 @@ const SideOptions = () => {
         )
     })
     return (
-        <div className='flex flex-col rounded-lg border border-green-accent bg-gray-50'>
-            <div className='bg-green-accent border-green-accent rounded-t flex justify-end pr-4 py-1 w-full'>
-                <button><Bars3Icon style='w-8 h-8 text-green-100'/></button>
+        <div className='flex flex-col rounded bg-gray-50'>
+            <div className='bg-green-accent rounded-t px-3 w-full h-12 flex items-center'>
+                <button className='rounded-full hover:bg-green-700 p-1'><Bars3Icon style='w-8 h-8 text-green-100'/></button>
             </div>
             <div>{sideOptionsElement}</div>
             <div className='h-96'></div>
