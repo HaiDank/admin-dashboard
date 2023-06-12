@@ -3,7 +3,6 @@ import { NavLink, useNavigate, useLocation } from 'react-router-dom'
 import BookIcon from '../../assets/BookIcon'
 import NetworkIcon from '../../assets/NetworkIcon'
 import PlanningIcon from '../../assets/PlanningIcon'
-import ShoppingIcon from '../../assets/ShoppingIcon'
 const HomeHeader = () => {
   const location = useLocation()
   const currentPath = location.pathname
@@ -29,7 +28,7 @@ const HomeHeader = () => {
                 <span className={`${isActive ? 'text-green-accent' : 'group-hover:text-green-600'}`}>Meal Planner</span>
               </div>}
           </NavLink>
-          <NavLink to='/shoppinglist' className={`flex`} >
+          <NavLink to='/global' className={`flex`} >
             {({ isActive }) =>
               <div className={`flex justify-center items-center space-x-2 group`}>
                 <NetworkIcon style={`w-8 h-8 ${isActive ? 'fill-green-200' : 'group-hover:text-green-600'}`} />

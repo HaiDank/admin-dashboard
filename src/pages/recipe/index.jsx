@@ -13,6 +13,9 @@ import SideOptions from './SideOptions'
 import RecipeFilter from './RecipeFilter'
 import axios from 'axios'
 import dummyRecipes from '../../dummyRecipes'
+import { Button } from 'flowbite-react'
+import ListView from '../../components/view/ListView'
+import GalleryView from '../../components/view/GalleryView'
 const Recipe = () => {
   const [data, setData] = useState()
 
@@ -27,7 +30,7 @@ const Recipe = () => {
   }, []);
   console.log(data);
 
-  const [viewOption, setViewOption] = useState('gallery')
+  const [viewOption, setViewOption] = useState('list')
   const [showedFilter, setShowedFilter] = useState(true)
   const [keyword, setKeyword] = useState('')
   const [searchResult, setSearchResult] = useState('')
@@ -38,61 +41,48 @@ const Recipe = () => {
       setSearchResult(keyword)
     }
   }
- 
-  const recipesElement = dummyRecipes.map(item => {
+
+  const recipeListElement = dummyRecipes.map(item => {
     const { imgUrl, title, tags, rating, prepTime, cookTime, recipeYield, ingredients, isFavourite } = item
     const stars = []
     for (let i = 0; i < 5; i++) {
       stars.push(i < rating ? true : false)
     }
     return (
-      <div>
-        {viewOption === 'list' &&
-          <div className='flex items-center border-2 border-gray-400 rounded p-2 bg-gray-100 hover:border-green-accent cursor-pointer relative'>
-            <img src={imgUrl} alt="" className='w-32 h-32 rounded' />
-            <div className='flex flex-col ml-4 space-y-2'>
-              <h1 className='text-xl font-bold text-green-accent'>{title}</h1>
-              <div className='space-x-2'>
-                <div className='flex space-x-1'>
-                  {stars.map((star, i) => {
-                    return <StarIcon key={i} style={`w-4 h-4 stroke-transparent ${star ? 'fill-orange-accent' : 'fill-gray-300 outline-none'}`} />
-                  })}
-                </div>
-              </div>
-              <div className='flex items-center space-x-4 font-medium'>
-                <div className='flex items-center space-x-1'><ClockIcon style='w-6 h-6' /><span>{msConverter(300000)}</span></div>
-                <div className='flex items-center space-x-0.5'><LeafIcon style='w-5 h-5 rotate-45' /><span>{ingredients.length}</span><span>Ingredients</span></div>
-                <div className='flex items-center space-x-1'><KnifeForkIcon style='w-5 h-5' /><span>Yield: </span><span>{recipeYield}</span></div>
-              </div>
-              <div className='gap-2 py-1 flex flex-wrap'>
-                {tags.map((tag) => {
-                  return (
-                    <span key={tag} className='border rounded-full py-0.5 px-3 border-green-variant'>
-                      {tag}
-                    </span>)
-                })}
-              </div>
-            </div>
-            {isFavourite && <HeartIcon style='w-6 h-6 absolute fill-red-500 stroke-red-100 left-3 top-3' />}
-          </div>}
-
-        {viewOption === 'gallery' &&
-          <div className='w-72 h-80 flex flex-col border-2 border-gray-200 rounded px-2 py-2 space-y-1 bg-gray-100 hover:border-green-accent cursor-pointer relative'>
-            <img src={imgUrl} alt="" className='w-full h-52 object-cover rounded' />
-            <h1 className='text-xl font-bold text-green-accent pt-2'>{title}</h1>
-            <div className='flex font-medium space-x-1'><ClockIcon style='w-6 h-6' /><span>{msConverter(300000)}</span></div>
+      <div className='flex items-center border-2 border-gray-300 rounded p-1 bg-gray-100 hover:border-green-accent cursor-pointer relative'>
+        <img src={imgUrl} alt="" className='w-32 h-32 rounded' />
+        <div className='flex flex-col ml-4 space-y-2'>
+          <h1 className='text-xl font-bold text-green-accent'>{title}</h1>
+          <div className='space-x-2'>
             <div className='flex space-x-1'>
               {stars.map((star, i) => {
-                return <StarIcon key={i} style={`w-4 h-4 stroke-transparent ${star ? 'fill-orange-accent' : 'fill-gray-300'}`} />
+                return <StarIcon key={i} style={`w-4 h-4 stroke-transparent ${star ? 'fill-orange-accent' : 'fill-gray-300 outline-none'}`} />
               })}
             </div>
-            {isFavourite && <HeartIcon style='w-8 h-8 absolute fill-red-600 stroke-red-200 right-4 top-44' />}
-          </div>}
-      </div>)
+          </div>
+          <div className='flex items-center space-x-4 font-medium'>
+            <div className='flex items-center space-x-1'><ClockIcon style='w-6 h-6' /><span>{msConverter(300000)}</span></div>
+            <div className='flex items-center space-x-0.5'><LeafIcon style='w-5 h-5 rotate-45' /><span>{ingredients.length}</span><span>Ingredients</span></div>
+            <div className='flex items-center space-x-1'><KnifeForkIcon style='w-5 h-5' /><span>Yield: </span><span>{recipeYield}</span></div>
+          </div>
+          <div className='gap-2 py-1 flex flex-wrap'>
+            {tags.map((tag) => {
+              return (
+                <span key={tag} className='border rounded-full py-0.5 px-3 border-green-variant'>
+                  {tag}
+                </span>)
+            })}
+          </div>
+        </div>
+        {isFavourite && <HeartIcon style='w-6 h-6 absolute fill-red-500 stroke-red-100 left-3 top-3' />}
+      </div>
+    )
   })
+
+
   return (
-    <section className='flex justify-center pt-4 mx-8 gap-6'>
-      <div className='max-w-8xl w-full flex space-x-4 rounded'>
+    <section className='flex justify-center mx-8 gap-6'>
+      <div className='max-w-8xl w-full flex space-x-4 rounded py-4'>
         <div className='border-gray-400 rounded max-w-7xl w-full space-y-4 bg-gray-50 py-4 px-8'>
           <div className='select-none flex justify-between pb-2 border-b-2 border-green-accent text-green-accent'>
             <div className={`flex items-center rounded cursor-pointer p-2 hover:bg-gray-200 ${isFiltering && !showedFilter ? 'underline underline-offset-2' : ''}`}
@@ -114,12 +104,12 @@ const Recipe = () => {
           </div>
           {showedFilter && <RecipeFilter filter={filter} setFilter={setFilter} />}
           {searchResult && <div className='flex rounded p-2 '>
-            <p className='font-semibold text-2xl'>Search result for "<span className='text-green-accent'>{searchResult}</span>"</p>
+            <p className='font-semibold text-2xl'>Search results for "<span className='text-green-accent'>{searchResult}</span>"</p>
           </div>}
-          {viewOption === 'list' && <div className='py-2 space-y-4'>{recipesElement}</div>}
-          {viewOption === 'gallery' && <div className='py-2 flex flex-wrap gap-5'>{recipesElement}</div>}
+          {viewOption === 'list' && <ListView recipeData={dummyRecipes} />}
+          {viewOption === 'gallery' && <GalleryView recipeData={dummyRecipes} />}
         </div>
-        <div className='flex-1'>
+        <div>
           <SideOptions />
         </div>
       </div>

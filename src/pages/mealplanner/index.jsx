@@ -7,8 +7,8 @@ const MealPlanner = () => {
   const today = new Date((new Date).getFullYear(), (new Date).getMonth(), (new Date).getDate())
   const [chosenDate, setChosenDate] = useState(today)
   return (
-    <section className='flex justify-center pt-4 mx-8 my-4'>
-      <div className='max-w-8xl w-full flex flex-col rounded space-y-2'>
+    <section className='flex justify-center py-4 mx-8'>
+      <div className='max-w-8xl w-full flex flex-col rounded space-y-2 bg-gray-50 px-8 py-4'>
         <div className='flex justify-between py-2'>
           <h1 className='text-4xl font-semibold text-gray-600'>Plan your meals</h1>
           <div className=''>

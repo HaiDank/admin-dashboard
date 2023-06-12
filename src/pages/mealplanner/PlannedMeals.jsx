@@ -12,7 +12,7 @@ const PlannedMeals = ({ chosenDate }) => {
         <img src={imgUrl} alt="" className='w-32 h-32 rounded' />
         <div className='flex flex-col ml-4'>
           <h1 className='text-lg font-bold text-green-variant'>Breakfast</h1>
-          <h1 className='text-xl font-bold text-green-accent'>{title}</h1>
+          <h1 className='text-xl font-bold text-green-accent truncate'>{title}</h1>
           <div className='flex flex-col font-medium '>
             <div className='flex items-center space-x-2'><span className='text-gray-600'>Cook time:</span><span>{cookTime}</span></div>
             <div className='flex items-center space-x-2'><span className='text-gray-600'>Prep time:</span><span>{prepTime}</span></div>
@@ -22,8 +22,8 @@ const PlannedMeals = ({ chosenDate }) => {
       </div>)
   })
   return (
-    <div className='border-2 border-gray-400 rounded min-h-[16rem] px-4 space-y-4 py-4'>
-      <h1 className='font-bold text-gray-500 text-xl'>{date}</h1>
+    <div className='border-t-2 border-gray-400 min-h-[16rem] px-2 space-y-4 py-4 '>
+      <h1 className='font-bold text-xl'>{date}</h1>
       <div className='grid grid-cols-2 gap-4'>
         {recipesElement}
       </div>
