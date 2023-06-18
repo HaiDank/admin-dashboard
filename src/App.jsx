@@ -36,17 +36,18 @@ const App = () => {
       } */}
       {
         <main>
-          <HomeHeader />
+          {/* <HomeHeader />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route element={<RequireAuth />} >
               <Route path="/*" element={<UserLayout />} />
-              {/* <Route path="/*" element={<AdminLayout />} /> */}
+              <Route path="/*" element={<AdminLayout />} />
             </Route>
             <Route path="/login" element={<Login />} />
             <Route path="/global" element={<GlobalRecipe />} />
             <Route path="/register" element={<Register />} />
-          </Routes>
+          </Routes> */}
+          <AdminLayout />
         </main>
       }
     </>
