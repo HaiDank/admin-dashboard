@@ -13,8 +13,8 @@ Pagination.defaultProps = {
 
 function Pagination(props) {
 	const { pagination, onPageChange } = props;
-	const { page, itemLimit, totalRows } = pagination;
-	const totalPages = Math.ceil(totalRows / itemLimit);
+	const { page, size, totalRows } = pagination;
+	const totalPages = Math.ceil(totalRows / size);
 
 	function handlePageChange(newPage) {
 		if (onPageChange) {
@@ -23,24 +23,22 @@ function Pagination(props) {
 	}
 
 	return (
-		<div className='flex'>
+		<Button.Group className='text-gray-900 dark:text-gray-300'>
 			<Button
 				disabled={page <= 1}
 				onClick={() => handlePageChange(page - 1)}
-				color='grey'
-				className='inline'
+				color='gray'
 			>
 				Prev
 			</Button>
 			<Button
 				disabled={page >= totalPages}
 				onClick={() => handlePageChange(page + 1)}
-				color='grey'
-				className='inline'
+				color='gray'
 			>
 				Next
 			</Button>
-		</div>
+		</Button.Group>
 	);
 }
 

@@ -27,7 +27,7 @@ function TopNav() {
 	);
 
 	return (
-		<div className='z-40 block fixed w-full md:static'>
+		<div className='flex justify-between p-2 md:ml-6 md:mr-6 relative'>
 			{/* toggleMenuButton */}
 			<Button customFunc={() => handleToggleMenu()} icon={menuToggleIcon} />
 			{/* toggleThemeButton */}

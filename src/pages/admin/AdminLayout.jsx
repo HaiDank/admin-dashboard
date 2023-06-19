@@ -15,14 +15,14 @@ function AdminLayout() {
 		<main
 			className={
 				isDarkMode
-					? 'dark relative flex bg-slate-700 overflow-hidden'
+					? 'dark relative flex bg-gray-700 overflow-hidden text-whitegray'
 					: 'relative flex overflow-hidden'
 			}
 		>
 			<div
 				className={
 					activeMenu
-						? 'sidebar fixed h-screen w-72 bg-white dark:bg-slate-700 '
+						? 'sidebar fixed h-screen w-72 bg-white dark:bg-gray-900'
 						: 'sidebar w-0 '
 				}
 			>
@@ -31,11 +31,11 @@ function AdminLayout() {
 			<div
 				className={
 					activeMenu
-						? 'inline-block min-h-screen w-full dark:bg-slate-700 md:ml-72'
-						: 'inline-block min-h-screen w-full dark:bg-slate-700'
+						? ' min-h-screen w-full dark:bg-gray-800 md:ml-72'
+						: 'min-h-screen w-full dark:bg-gray-800'
 				}
 			>
-				<div>
+				<div className='fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full '>
 					<TopNav />
 				</div>
 				<div>

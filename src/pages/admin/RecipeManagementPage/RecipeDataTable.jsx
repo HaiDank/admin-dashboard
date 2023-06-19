@@ -1,29 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import dummyRecipes from '../../../dummyRecipes';
 import DataTableBase from '../../../components/DataTable/DataTableBase';
-import { Button, Table } from 'flowbite-react';
+import { Button, Checkbox, Spinner, Table } from 'flowbite-react';
 import Pagination from '../../../components/Pagination';
+import axios, { axiosGetAdminRecipes } from '../../../api/axios';
 
-const data = dummyRecipes;
-
-const columns = ['Title', 'Tags', 'Rating', 'Action'];
-
-// Convert each object in the array
-const rows = data.map(({ imgUrl, title, tags, rating }) => ({
-	imgUrl,
-	title,
-	tags,
-	rating,
-}));
+const columns = [
+	{
+		key: 'title',
+		name: 'Title',
+	},
+	{
+		key: 'tags',
+		name: 'Tags',
+	},
+	{
+		key: 'rating',
+		name: 'Rating',
+	},
+];
 
 function RecipeDataTable() {
+	const [rows, setRows] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
+	const [sortOrder, setSortOrder] = useState(false); // true = asc, false = desc
+	const [sortKey, setSortKey] = useState('');
+	const [allSelected, setAllSelected] = useState(false);
+
 	const [pagination, setPagination] = useState({
 		page: 1,
-		itemLimit: 6,
-		totalRows: 12,
+		size: 2,
+		totalRows: 4,
 	});
-
-	const [pageItems, setPageItems] = useState([]);
 
 	function handlePageChange(newPage) {
 		setPagination({
@@ -32,64 +40,105 @@ function RecipeDataTable() {
 		});
 	}
 
-	useEffect(() => {
-		async function sliceArray() {
-			try {
-				let i = (pagination.page - 1) * pagination.itemLimit;
-				const chunk = rows.slice(i, i + pagination.itemLimit);
-				setPageItems(chunk);
-			} catch (error) {
-				console.log(error.message);
-			}
+	function handleTableSort(key) {
+		if (key == sortKey) {
+			setSortOrder(!sortOrder);
+		} else {
+			setSortKey(key);
+			setSortOrder(true);
 		}
-		sliceArray();
+	}
+
+	function handleSelectAll() {
+		setAllSelected(!allSelected);
+	}
+
+	useEffect(() => {
+		async function fetchRecipes() {
+			setIsLoading(true);
+			let data = await axiosGetAdminRecipes(pagination);
+			setIsLoading(false);
+			setRows(data);
+		}
+		fetchRecipes();
 	}, [pagination]);
 
 	return (
 		<>
 			<Table hoverable>
 				<Table.Head>
-					{columns.map((columnItem, i) => (
-						<Table.HeadCell key={i}>{columnItem}</Table.HeadCell>
+					<Table.HeadCell className='!p-4'>
+						<Checkbox onChange={handleSelectAll} />
+					</Table.HeadCell>
+					{columns.map((column, i) => (
+						<Table.HeadCell
+							key={i}
+							onClick={() => handleTableSort(column.key)}
+							className='cursor-pointer'
+						>
+							{column.name}{' '}
+							<span>
+								{sortOrder && column.key == sortKey
+									? '\u25B2'
+									: '\u25BC'}
+							</span>
+						</Table.HeadCell>
 					))}
+
+					<Table.HeadCell>Action</Table.HeadCell>
 				</Table.Head>
 				<Table.Body className='divide-y'>
-					{pageItems.map((item, i) => (
-						<Table.Row key={i}>
-							<Table.Cell className='max-w-xs whitespace-nowrap content-center overflow-x-scroll no-scrollbar'>
-								<img
-									src={item.imgUrl}
-									className='inline rounded-full aspect-square w-10 mr-4'
-								/>
-								<span>{item.title}</span>
-							</Table.Cell>
-							<Table.Cell className='max-w-xs flex flex-wrap'>
-								{item.tags.map((tag, i) => {
-									return (
-										<>
+					{!isLoading &&
+						rows.map((item, i) => (
+							<Table.Row
+								key={i}
+								className='dark:border-gray-700 dark:bg-gray-800'
+							>
+								<Table.Cell className='!p-4'>
+									<Checkbox checked={allSelected} />
+								</Table.Cell>
+								<Table.Cell className='max-w-xs whitespace-nowrap content-center overflow-x-scroll no-scrollbar'>
+									<img
+										src={
+											item.images.length > 0
+												? item.images[0].imageUrl
+												: ''
+										}
+										className='inline rounded-full aspect-square w-10 mr-4'
+									/>
+									<span>{item.title}</span>
+								</Table.Cell>
+								<Table.Cell className='max-w-xs flex flex-wrap'>
+									{item.tags.map((tag) => {
+										return (
 											<span
-												key={i}
+												key={tag.tagId}
 												className='border rounded-full py-0.5 px-3 my-1 inline-block border-green-variant'
 											>
-												{tag}
+												{tag.tagName}
 											</span>
-											{/* {(i + 1) % 3 == 0 ? <br /> : ' '} */}
-										</>
-									);
-								})}
-							</Table.Cell>
-							<Table.Cell>{item.rating}</Table.Cell>
-							<Table.Cell>
-								{' '}
-								<Button color='failure' size='sm'>
-									Remove
-								</Button>{' '}
-							</Table.Cell>
-						</Table.Row>
-					))}
+										);
+									})}
+								</Table.Cell>
+								<Table.Cell>{item.rating}</Table.Cell>
+								<Table.Cell>
+									{' '}
+									<Button color='failure' size='sm' outline>
+										Remove
+									</Button>{' '}
+								</Table.Cell>
+							</Table.Row>
+						))}
 				</Table.Body>
 			</Table>
-			<Pagination onPageChange={handlePageChange} pagination={pagination} />
+			<div className='flex content-baseline justify-start'>
+				<Pagination
+					onPageChange={handlePageChange}
+					pagination={pagination}
+				/>
+
+				{isLoading && <Spinner size='xl' className='flex content-center' />}
+			</div>
 		</>
 	);
 }
