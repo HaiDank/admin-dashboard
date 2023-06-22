@@ -5,8 +5,8 @@ import AdminHeader from '../../../components/header/AdminHeader';
 
 function RecipeMP() {
 	return (
-		<div className='m-2 md:m-5 mt-24 p-2 md:p-10 bg-white dark:bg-gray-900 rounded-3xl overflow-x-scroll no-scrollbar shadow-md'>
-			<AdminHeader category='Page' title='Recipes' />
+		<div className='admin-content'>
+			<AdminHeader category='page' title='Recipes' />
 			<RecipeDataTable />
 		</div>
 	);

@@ -15,7 +15,7 @@ function AdminLayout() {
 		<main
 			className={
 				isDarkMode
-					? 'dark relative flex bg-gray-700 overflow-hidden text-whitegray'
+					? 'dark relative flex bg-gray-800 overflow-hidden text-whitegray'
 					: 'relative flex overflow-hidden'
 			}
 		>

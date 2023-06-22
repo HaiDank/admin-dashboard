@@ -2,6 +2,7 @@ import React from 'react';
 import { useThemeContext } from '../../contexts/ThemeContext';
 import SwitchButton from '../SwitchButton';
 import Button from '../Button';
+import { Avatar, Dropdown, Tooltip } from 'flowbite-react';
 
 function TopNav() {
 	const { activeMenu, setActiveMenu, toggleDarkMode, isDarkMode } =
@@ -29,9 +30,39 @@ function TopNav() {
 	return (
 		<div className='flex justify-between p-2 md:ml-6 md:mr-6 relative'>
 			{/* toggleMenuButton */}
-			<Button customFunc={() => handleToggleMenu()} icon={menuToggleIcon} />
+			<Tooltip content='Menu'>
+				<Button
+					customFunc={() => handleToggleMenu()}
+					icon={menuToggleIcon}
+				/>
+			</Tooltip>
+
 			{/* toggleThemeButton */}
-			<SwitchButton isOn={isDarkMode} customFunc={() => toggleDarkMode()} />
+			<Dropdown
+				inline
+				label={
+					<Avatar rounded alt='avatar' img='/img/admin-avatar.png'>
+						hello, admin
+					</Avatar>
+				}
+			>
+				<Dropdown.Header>
+					<span className='block text-sm'>Full name</span>
+					<span className='block truncate text-sm font-medium'>
+						email@email.com
+					</span>
+				</Dropdown.Header>
+				<Dropdown.Item>Profile</Dropdown.Item>
+				<Dropdown.Item>
+					<Tooltip content='Change theme'>
+						<SwitchButton
+							isOn={isDarkMode}
+							customFunc={() => toggleDarkMode()}
+						/>
+					</Tooltip>
+				</Dropdown.Item>
+				<Dropdown.Item>Sign out</Dropdown.Item>
+			</Dropdown>
 		</div>
 	);
 }

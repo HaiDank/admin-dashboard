@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import CustomLink from './CustomLink';
 import { links } from './SideNavData';
 import { useThemeContext } from '../../contexts/ThemeContext';
+import XCircleIcon from '../../assets/XCircleIcon';
 
 function SideNav() {
 	const { setActiveMenu } = useThemeContext();
@@ -9,19 +10,19 @@ function SideNav() {
 	const handleTurnOffMenu = () => setActiveMenu(false);
 
 	return (
-		<div className='ml-3 h-screen overflow-auto pb-10 md:overflow-hidden md:hover:overflow-auto sidebar'>
+		<div className=' h-screen overflow-auto pb-10 md:overflow-hidden md:hover:overflow-auto sidebar no-scrollbar'>
 			<div className='mb-10 z-40 flex justify-between items-center'>
 				<img
-					className='h-auto w-5/6'
+					className='h-auto md:w-2/3 w-1/2'
 					src='img/logo-text-recipehub-v2.png'
 					about='recipeHub'
 				/>
 				<button
 					type='button'
 					onClick={() => handleTurnOffMenu()}
-					className='text-xl rounded-full p-3 hover:bg-light-gray mt-4 block md:hidden'
+					className='aspect-square relative rounded-full p-3 w-auto hover:bg-gray-300 dark:hover:bg-gray-600 md:hidden'
 				>
-					x
+					<XCircleIcon />
 				</button>
 			</div>
 			<div className='z-50 '>

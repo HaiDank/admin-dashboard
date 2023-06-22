@@ -23,7 +23,7 @@ const columns = [
 function RecipeDataTable() {
 	const [rows, setRows] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
-	const [sortOrder, setSortOrder] = useState(false); // true = asc, false = desc
+	const [sortOrder, setSortOrder] = useState(true); // true = asc, false = desc
 	const [sortKey, setSortKey] = useState('');
 	const [allSelected, setAllSelected] = useState(false);
 
@@ -37,6 +37,13 @@ function RecipeDataTable() {
 		setPagination({
 			...pagination,
 			page: newPage,
+		});
+	}
+
+	function handleSelectPageSize(event) {
+		setPagination({
+			...pagination,
+			size: event.target.value,
 		});
 	}
 
@@ -65,6 +72,30 @@ function RecipeDataTable() {
 
 	return (
 		<>
+			<div class='mb-2'>
+				<label
+					htmlFor='size'
+					class='inline mb-2 text-sm font-medium text-gray-900 dark:text-white'
+				>
+					Showing
+				</label>
+				<select
+					onChange={handleSelectPageSize}
+					id='size'
+					class=' bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 inline p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+				>
+					<option value='5'>5</option>
+					<option value='10'>10</option>
+					<option value='15'>15</option>
+					<option value='20'>20</option>
+				</select>
+				<label
+					for='size'
+					class='inline mb-2 text-sm font-medium text-gray-900 dark:text-white'
+				>
+					records per page
+				</label>
+			</div>
 			<Table hoverable>
 				<Table.Head>
 					<Table.HeadCell className='!p-4'>
@@ -78,9 +109,11 @@ function RecipeDataTable() {
 						>
 							{column.name}{' '}
 							<span>
-								{sortOrder && column.key == sortKey
-									? '\u25B2'
-									: '\u25BC'}
+								{column.key == sortKey
+									? sortOrder
+										? '\u25BC'
+										: '\u25B2'
+									: '\u25B2'}
 							</span>
 						</Table.HeadCell>
 					))}
@@ -131,14 +164,14 @@ function RecipeDataTable() {
 						))}
 				</Table.Body>
 			</Table>
-			<div className='flex content-baseline justify-start'>
-				<Pagination
-					onPageChange={handlePageChange}
-					pagination={pagination}
-				/>
 
-				{isLoading && <Spinner size='xl' className='flex content-center' />}
-			</div>
+			<Pagination
+				onPageChange={handlePageChange}
+				pagination={pagination}
+				onSizePick={handleSelectPageSize}
+			/>
+
+			{isLoading && <Spinner size='xl' className='flex content-center' />}
 		</>
 	);
 }

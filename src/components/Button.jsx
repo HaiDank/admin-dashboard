@@ -7,7 +7,7 @@ const Button = ({ customFunc, icon, disabled, children }) => {
 				type='button'
 				disabled={disabled}
 				onClick={customFunc}
-				className='relative rounded-2xl p-3 text-xl hover:bg-slate-400'
+				className='relative rounded-full p-3 text-xl hover:bg-gray-300 dark:hover:bg-gray-600 aspect-square'
 			>
 				{icon} {children}
 			</button>
